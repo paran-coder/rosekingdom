@@ -1,11 +1,5 @@
 /* 부엉프로덕션 · 로즈왕국 — 콘텐츠 데이터
    링크(url)가 비어 있으면 '준비중' 상태로 표시됩니다. 여기만 고치면 사이트에 반영됩니다. */
-window.CONFIG = {
-  siteName: '부엉프로덕션',
-  contactEmail: '',            // 의뢰 메일 수신 주소 (예: hello@owl.production)
-  newsletterAction: ''         // 로즈편지 구독 폼 전송 URL (스티비/메일침프 등). 비우면 브라우저에만 저장
-};
-
 /* sns type: youtube | instagram | tiktok | x | threads | blog */
 window.QUEEN = {
   id: 'rose', name: '로즈', title: '로즈왕국의 여왕', en: 'Queen Rose of the Rose Kingdom',
@@ -160,11 +154,5 @@ window.LIBRARY = {
       text: '서고의 마지막 장은 비어 있다. 그것은 앞으로 부엉프로덕션이 함께 써 내려갈 이야기다.' }
   ]
 };
-
-/* 로즈편지 — 지난 편지 아카이브 */
-window.LETTERS = [
-  { no: 1, date: '2026.10.11', title: '창간호 · 왕국의 문이 열렸습니다',
-    body: '안녕하세요, 로즈입니다. 오늘부터 부엉프로덕션의 소식을 장미 향과 함께 편지로 보내드립니다. 새 영상, 공개 스킬, 부엉이들의 근황을 한 통에 담아 드릴게요.' }
-];
 
 window.SNS_LABEL = { youtube: 'YouTube', instagram: 'Instagram', tiktok: 'TikTok', x: 'X', threads: 'Threads', blog: 'Blog' };

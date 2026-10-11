@@ -39,8 +39,7 @@
     { id: 'village', name: '부엉이 마을', sub: '8마리 크리에이터', cx: .54, cy: .46, k: 2.8, side: 'left', ax: .545, ay: .60, go: 'village' },
     { id: 'theater', name: '왕립 상영관', sub: '작품 상영', cx: .79, cy: .60, k: 2.9, side: 'left', ax: .785, ay: .74, go: 'theater' },
     { id: 'lab', name: '왕립기술연구소', sub: '연구 · 기록 · 자료실', cx: .71, cy: .26, k: 3.0, side: 'left', ax: .71, ay: .39, go: 'lab' },
-    { id: 'library', name: '왕립서고', sub: '로즈왕국 연대기', cx: .885, cy: .29, k: 3.0, side: 'left', ax: .885, ay: .46, go: 'library' },
-    { id: 'hall', name: '알현실', sub: '의뢰 · 로즈편지', cx: .55, cy: .74, k: 3.0, side: 'right', ax: .515, ay: .80, go: 'hall' }
+    { id: 'library', name: '왕립서고', sub: '로즈왕국 연대기', cx: .885, cy: .29, k: 3.0, side: 'left', ax: .885, ay: .46, go: 'library' }
   ];
   var N = NODES.length;
 
@@ -153,9 +152,6 @@
         return '<p class="no">ROYAL LIBRARY</p><h3>왕립서고</h3><p class="t">' + esc(D.LIBRARY.intro) + '</p><ul class="mini-list">' +
           D.LIBRARY.chapters.slice(0, 4).map(function (c) { return '<li><b>' + esc(c.title) + '</b><small>' + esc(c.era.split('·')[0].trim()) + '</small></li>'; }).join('') + '</ul>' +
           '<div class="pop-actions">' + go(n.go, '서고 열기') + '</div>';
-      case 'hall':
-        return '<p class="no">AUDIENCE HALL</p><h3>알현실</h3><p class="t">영상 제작을 맡기거나, 왕국의 소식을 편지로 받아 보세요.</p>' +
-          '<div class="pop-actions">' + go('commissionForm', '의뢰하기') + go('letterPanel', '로즈편지 구독') + '</div>';
     }
     return '';
   }
@@ -348,14 +344,6 @@
     return '<li><p class="era">' + esc(c.era) + '</p><h3>' + esc(c.title) + '</h3><p>' + esc(c.text) + '</p></li>';
   }).join('');
 
-  var ll = $('#letterList');
-  D.LETTERS.slice().sort(function (a, b) { return b.no - a.no; }).forEach(function (l) {
-    var li = document.createElement('li');
-    li.innerHTML = '<button type="button"><span class="d">No.' + l.no + ' · ' + esc(l.date) + '</span><br><span class="t">' + esc(l.title) + '</span></button><p class="b">' + esc(l.body) + '</p>';
-    li.querySelector('button').addEventListener('click', function () { li.classList.toggle('open'); });
-    ll.appendChild(li);
-  });
-
   /* ---------- 모달 ---------- */
   var modal = $('#modal'), body = $('#modalBody'), lastFocus = null;
   function openModal(html, cls) {
@@ -385,38 +373,6 @@
       openModal('<div style="text-align:center;padding:50px 10px"><p style="font-size:3rem">&#127916;</p><h3 style="font-family:var(--serif);font-size:1.5rem;color:var(--rose)">상영 준비중입니다</h3><p style="margin-top:8px">&lsquo;' + esc(f.title) + '&rsquo; 은(는) 곧 개봉합니다.</p></div>');
     }
   }
-
-  /* ---------- 폼 ---------- */
-  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  $('#commissionForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = e.target, note = $('#commissionNote'), v = function (n) { return f.elements[n].value.trim(); };
-    if (!v('name') || !emailRe.test(v('email')) || !v('msg')) { note.textContent = '성함, 올바른 이메일, 의뢰 내용을 입력해 주세요.'; return; }
-    var text = '[부엉프로덕션 의뢰]\n성함/팀: ' + v('name') + '\n이메일: ' + v('email') + '\n종류: ' + v('kind') + '\n예산·일정: ' + (v('budget') || '-') + '\n\n' + v('msg');
-    var to = D.CONFIG.contactEmail;
-    if (to) {
-      location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent('[의뢰] ' + v('kind') + ' - ' + v('name')) + '&body=' + encodeURIComponent(text);
-      note.textContent = '메일 앱이 열립니다. 전송을 눌러 주세요.';
-    } else {
-      try { navigator.clipboard.writeText(text); } catch (err) {}
-      note.textContent = '의뢰 접수 주소가 아직 설정되지 않았습니다. 내용은 복사해 두었어요.';
-    }
-  });
-  $('#letterForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = e.target, note = $('#letterNote'), mail = f.elements.email.value.trim();
-    if (!emailRe.test(mail)) { note.textContent = '올바른 이메일 주소를 입력해 주세요.'; return; }
-    var action = D.CONFIG.newsletterAction;
-    if (action && safeUrl(action)) {
-      var fd = new FormData(); fd.append('email', mail);
-      fetch(action, { method: 'POST', body: fd, mode: 'no-cors' })
-        .then(function () { note.textContent = '구독 신청이 접수되었습니다. 장미 향 가득한 편지로 만나요!'; f.reset(); })
-        .catch(function () { note.textContent = '전송에 실패했어요. 잠시 후 다시 시도해 주세요.'; });
-    } else {
-      try { var k = 'rose-letter-subs', a = JSON.parse(localStorage.getItem(k) || '[]'); if (a.indexOf(mail) < 0) a.push(mail); localStorage.setItem(k, JSON.stringify(a)); } catch (err) {}
-      note.textContent = '구독 신청을 받았습니다. (구독 서비스 연결 전이라 이 브라우저에만 저장돼요)'; f.reset();
-    }
-  });
 
   /* ---------- 장미 꽃잎 ---------- */
   (function petals() {
