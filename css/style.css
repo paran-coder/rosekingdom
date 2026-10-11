@@ -276,3 +276,4 @@ textarea{resize:vertical}
   #petals{display:none}
   .pop{transition:none}
 }
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
