@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>부엉프로덕션 · 로즈왕국</title>
+<meta name="description" content="로즈왕국의 AI 영상제작 프로덕션, 부엉프로덕션. 로즈여왕과 헌터, 여덟 마리 부엉이 크리에이터를 만나보세요.">
+<meta property="og:title" content="부엉프로덕션 · 로즈왕국">
+<meta property="og:description" content="로즈왕국의 AI 영상제작 프로덕션">
+<meta property="og:image" content="assets/world/mini.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#world"><span class="brand-mark">&#10048;</span> 부엉프로덕션</a>
+  <div class="coords" id="coords">로즈왕국 · 전경</div>
+  <div class="top-actions">
+    <button class="pill" id="tourBtn" type="button" aria-pressed="false">&#9654; 자동으로 둘러보기</button>
+    <button class="pill" id="mapBtn" type="button" aria-expanded="false" aria-controls="mapPanel">왕국 지도</button>
+  </div>
+</header>
+
+<nav class="map-panel" id="mapPanel" hidden>
+  <p class="map-title">로즈왕국 지도</p>
+  <ol id="mapList"></ol>
+  <a class="map-list-link" href="#catalog">&#9776; 목록으로 바로 보기</a>
+</nav>
+
+<!-- ===== 월드: 스크롤하면 카메라가 왕국 위를 날아다닙니다 ===== -->
+<section class="world" id="world" aria-label="로즈왕국 투어">
+  <div class="world-sticky" id="worldSticky">
+    <div class="map" id="map">
+      <img class="map-day" id="mapDay" alt="로즈왕국 전경" decoding="async" fetchpriority="high">
+      <img class="map-night" id="mapNight" alt="" decoding="async">
+      <div class="map-dusk" id="mapDusk"></div>
+    </div>
+    <div class="signs" id="signs" aria-hidden="true"></div>
+    <div class="map-shade" aria-hidden="true"></div>
+    <canvas id="petals" aria-hidden="true"></canvas>
+
+    <div class="hero-scrim" id="heroScrim"></div>
+    <div class="hero" id="heroText">
+      <p class="eyebrow">AI VIDEO PRODUCTION · ROSE KINGDOM</p>
+      <h1 class="hero-title">
+        <span>장미가 피어나는 왕국의</span>
+        <em>부엉프로덕션</em>
+      </h1>
+      <p class="hero-sub">로즈여왕과 조교 헌터, 그리고 여덟 마리 부엉이 크리에이터가<br>이야기를 영상으로 피워내는 가상의 AI 영상제작 프로덕션입니다.</p>
+      <div class="hero-stats">
+        <div><b>1</b><span>여왕</span></div>
+        <div><b>1</b><span>조교</span></div>
+        <div><b>8</b><span>부엉이</span></div>
+      </div>
+    </div>
+
+    <aside class="pop" id="pop" aria-live="polite"></aside>
+
+    <div class="scroll-hint" id="scrollHint"><span></span>스크롤해서 왕국으로 들어가기</div>
+    <a class="list-btn" href="#catalog">&#9776; 목록으로 바로 보기</a>
+
+    <div class="minimap" id="minimap" aria-label="미니맵">
+      <div class="mm-img"><img src="assets/world/mini.jpg" alt=""><div class="mm-view" id="mmView"></div><div class="mm-dots" id="mmDots"></div></div>
+      <div class="mm-label" id="mmLabel">전경</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 카탈로그: 월드에서 본 곳을 자세히 ===== -->
+<main class="catalog" id="catalog">
+
+  <section class="sec" id="palace">
+    <div class="sec-inner split">
+      <div class="sec-head">
+        <p class="eyebrow">THE ROSE PALACE</p>
+        <h2>장미 궁전</h2>
+        <p class="lead">왕국을 다스리는 여왕이자, 카메라 앞에도 서는 크리에이터.</p>
+      </div>
+      <div id="queenCard" class="profile-card"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="training">
+    <div class="sec-inner split reverse">
+      <div class="sec-head">
+        <p class="eyebrow">THE TRAINING GROUNDS</p>
+        <h2>부엉이 훈련소</h2>
+        <p class="lead">프로덕션의 실세. 호루라기 한 번에 여덟 마리 부엉이가 줄을 섭니다.</p>
+      </div>
+      <div id="hunterCard" class="profile-card"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="village">
+    <div class="sec-inner">
+      <div class="sec-head center">
+        <p class="eyebrow">THE OWL VILLAGE</p>
+        <h2>부엉이 마을</h2>
+        <p class="lead">저마다 한 분야의 대가. 카드를 눌러 소개를 보고 채널로 놀러 가세요.</p>
+      </div>
+      <div class="owl-grid" id="owlGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec dark" id="theater">
+    <div class="sec-inner">
+      <div class="sec-head center">
+        <p class="eyebrow">THE ROYAL THEATER</p>
+        <h2>왕립 상영관</h2>
+        <p class="lead">프로덕션이 만든 영상을 모아 상영합니다.</p>
+      </div>
+      <div class="screen-grid" id="screenGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="lab">
+    <div class="sec-inner">
+      <div class="sec-head center">
+        <p class="eyebrow">THE ROYAL INSTITUTE OF TECHNOLOGY</p>
+        <h2>왕립기술연구소</h2>
+        <p class="lead">프로덕션이 만든 프로그램과 공개 스킬을 기록하고 나눕니다.</p>
+      </div>
+      <div class="chips" id="labChips" role="tablist"></div>
+      <div class="lab-grid" id="labGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="library">
+    <div class="sec-inner narrow">
+      <div class="sec-head center">
+        <p class="eyebrow">THE ROYAL LIBRARY</p>
+        <h2>왕립서고</h2>
+        <p class="lead" id="libIntro"></p>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <section class="sec dark" id="hall">
+    <div class="sec-inner">
+      <div class="sec-head center">
+        <p class="eyebrow">THE AUDIENCE HALL</p>
+        <h2>알현실</h2>
+        <p class="lead">영상 제작을 맡기거나, 왕국의 소식을 편지로 받아 보세요.</p>
+      </div>
+      <div class="hall-grid">
+        <form class="panel" id="commissionForm" novalidate>
+          <h3>의뢰소 <small>헌터가 접수합니다</small></h3>
+          <label>성함 / 팀명<input name="name" required autocomplete="name"></label>
+          <label>회신 받을 이메일<input name="email" type="email" required autocomplete="email"></label>
+          <label>의뢰 종류
+            <select name="kind">
+              <option>AI 영상 제작</option><option>캐릭터 디자인</option><option>시나리오 · 연출</option>
+              <option>뮤직 · 아이돌 콘텐츠</option><option>기타 협업</option>
+            </select>
+          </label>
+          <label>예산 · 일정 (선택)<input name="budget" placeholder="예: 300만원 / 12월 말"></label>
+          <label>의뢰 내용<textarea name="msg" rows="5" required placeholder="어떤 이야기를 영상으로 피우고 싶으신가요?"></textarea></label>
+          <button class="btn primary" type="submit">의뢰서 보내기</button>
+          <p class="form-note" id="commissionNote" role="status"></p>
+        </form>
+
+        <div class="panel letter" id="letterPanel">
+          <h3>로즈편지 <small>왕국의 소식</small></h3>
+          <p class="letter-lead">새 영상, 공개 스킬, 부엉이들의 근황을 장미 향과 함께 보내드립니다.</p>
+          <form id="letterForm" novalidate>
+            <div class="letter-row">
+              <input name="email" type="email" required placeholder="이메일 주소" aria-label="이메일 주소">
+              <button class="btn primary" type="submit">구독</button>
+            </div>
+            <p class="form-note" id="letterNote" role="status"></p>
+          </form>
+          <h4>지난 편지</h4>
+          <ul class="letter-list" id="letterList"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="brand"><span class="brand-mark">&#10048;</span> 부엉프로덕션</p>
+    <p>장미가 피어나는 한, 로즈왕국은 영원히 아름다우리라.</p>
+    <p class="fine">&copy; 2026 Owl Production · Rose Kingdom. 모든 캐릭터는 가상의 인물입니다.</p>
+  </footer>
+</main>
+
+<!-- 모달 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" id="modalBox">
+    <button class="modal-x" data-close aria-label="닫기">&times;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="data/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
