@@ -22,5 +22,10 @@ python -m http.server 5173 --directory site
 `day.jpg`, `night.jpg` (+ 모바일용 `-m`, 미니맵 `mini.jpg`). 만든 방법은 `../docs/magnific-scene-prompts.md` 참고.
 카메라 지점/간판 위치는 `js/main.js`의 `NODES`에서 조정합니다.
 
+## 어드민 (`/admin/`)
+비밀번호 하나로 잠긴 관리자 페이지입니다. SNS 링크, 상영관 영상, 연구소 아카이브, 로즈편지 지난 호를 고치고 의뢰서·구독자 접수함을 볼 수 있습니다.
+Supabase(DB)와 Vercel 환경변수 설정이 필요합니다 → 자세한 순서와 현재 상태는 `docs/HANDOFF.md`.
+설정 전에는 사이트가 `data/data.js` 기본값으로 정상 동작합니다.
+
 ## 배포
-`site/` 폴더를 Netlify, Vercel, GitHub Pages 등에 그대로 올리면 됩니다.
+GitHub `main` 에 push 하면 Vercel 이 자동 배포합니다. (어드민 API 때문에 Vercel 이 필요합니다. 정적 호스팅만으로는 `/admin` 이 동작하지 않습니다.)
