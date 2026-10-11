@@ -1,4 +1,4 @@
-function __boot() {
+(function () {
   'use strict';
   var D = window;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -319,7 +319,6 @@ function __boot() {
   });
 
   var sg = $('#screenGrid');
-  if (!D.SCREENINGS.length) sg.innerHTML = '<p class="empty">곧 개봉 예정입니다.</p>';
   D.SCREENINGS.forEach(function (f) {
     var b = document.createElement('button');
     b.className = 'film'; b.type = 'button';
@@ -401,46 +400,34 @@ function __boot() {
 
   /* ---------- 폼 ---------- */
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  /* 서버(/api)로 보냅니다. 서버가 없거나 DB 가 연결되지 않았으면(로컬 확인 등) 예전 방식으로 대신합니다. */
-  function postJson(url, data) {
-    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); })
-      .catch(function () { return { status: 0, body: {} }; });
-  }
-  function serverDown(res) { return res.status === 0 || res.status === 404 || res.status === 503 || res.status === 405; }
-
   $('#commissionForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = e.target, note = $('#commissionNote'), btn = $('button[type=submit]', f), v = function (n) { return f.elements[n].value.trim(); };
+    var f = e.target, note = $('#commissionNote'), v = function (n) { return f.elements[n].value.trim(); };
     if (!v('name') || !emailRe.test(v('email')) || !v('msg')) { note.textContent = '성함, 올바른 이메일, 의뢰 내용을 입력해 주세요.'; return; }
-    btn.disabled = true; note.textContent = '보내는 중…';
-    postJson('/api/inquiries', { name: v('name'), email: v('email'), kind: v('kind'), budget: v('budget'), msg: v('msg'), website: v('website') }).then(function (res) {
-      btn.disabled = false;
-      if (res.status === 200) { note.textContent = '의뢰서가 접수되었습니다. 헌터가 확인하고 회신드릴게요!'; f.reset(); return; }
-      if (!serverDown(res)) { note.textContent = res.body.error || '접수에 실패했어요. 잠시 후 다시 시도해 주세요.'; return; }
-      var text = '[부엉프로덕션 의뢰]\n성함/팀: ' + v('name') + '\n이메일: ' + v('email') + '\n종류: ' + v('kind') + '\n예산·일정: ' + (v('budget') || '-') + '\n\n' + v('msg');
-      var to = D.CONFIG.contactEmail;
-      if (to) {
-        location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent('[의뢰] ' + v('kind') + ' - ' + v('name')) + '&body=' + encodeURIComponent(text);
-        note.textContent = '메일 앱이 열립니다. 전송을 눌러 주세요.';
-      } else {
-        try { navigator.clipboard.writeText(text); } catch (err) {}
-        note.textContent = '의뢰 접수가 아직 연결되지 않았습니다. 내용은 복사해 두었어요.';
-      }
-    });
+    var text = '[부엉프로덕션 의뢰]\n성함/팀: ' + v('name') + '\n이메일: ' + v('email') + '\n종류: ' + v('kind') + '\n예산·일정: ' + (v('budget') || '-') + '\n\n' + v('msg');
+    var to = D.CONFIG.contactEmail;
+    if (to) {
+      location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent('[의뢰] ' + v('kind') + ' - ' + v('name')) + '&body=' + encodeURIComponent(text);
+      note.textContent = '메일 앱이 열립니다. 전송을 눌러 주세요.';
+    } else {
+      try { navigator.clipboard.writeText(text); } catch (err) {}
+      note.textContent = '의뢰 접수 주소가 아직 설정되지 않았습니다. 내용은 복사해 두었어요.';
+    }
   });
   $('#letterForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = e.target, note = $('#letterNote'), btn = $('button[type=submit]', f), mail = f.elements.email.value.trim();
+    var f = e.target, note = $('#letterNote'), mail = f.elements.email.value.trim();
     if (!emailRe.test(mail)) { note.textContent = '올바른 이메일 주소를 입력해 주세요.'; return; }
-    btn.disabled = true; note.textContent = '신청 중…';
-    postJson('/api/subscribe', { email: mail, website: f.elements.website.value }).then(function (res) {
-      btn.disabled = false;
-      if (res.status === 200) { note.textContent = res.body.already ? '이미 구독 중인 이메일이에요. 편지를 기다려 주세요!' : '구독 신청이 접수되었습니다. 장미 향 가득한 편지로 만나요!'; f.reset(); return; }
-      if (!serverDown(res)) { note.textContent = res.body.error || '구독 신청에 실패했어요. 잠시 후 다시 시도해 주세요.'; return; }
+    var action = D.CONFIG.newsletterAction;
+    if (action && safeUrl(action)) {
+      var fd = new FormData(); fd.append('email', mail);
+      fetch(action, { method: 'POST', body: fd, mode: 'no-cors' })
+        .then(function () { note.textContent = '구독 신청이 접수되었습니다. 장미 향 가득한 편지로 만나요!'; f.reset(); })
+        .catch(function () { note.textContent = '전송에 실패했어요. 잠시 후 다시 시도해 주세요.'; });
+    } else {
       try { var k = 'rose-letter-subs', a = JSON.parse(localStorage.getItem(k) || '[]'); if (a.indexOf(mail) < 0) a.push(mail); localStorage.setItem(k, JSON.stringify(a)); } catch (err) {}
       note.textContent = '구독 신청을 받았습니다. (구독 서비스 연결 전이라 이 브라우저에만 저장돼요)'; f.reset();
-    });
+    }
   });
 
   /* ---------- 장미 꽃잎 ---------- */
@@ -467,6 +454,4 @@ function __boot() {
     }
     loop();
   })();
-}
-/* 어드민에서 고친 내용(js/content.js)을 먼저 받아 온 뒤 화면을 그립니다 */
-(window.CONTENT_READY || Promise.resolve()).then(__boot);
+})();

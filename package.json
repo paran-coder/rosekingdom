@@ -1,7 +1,0 @@
-{
-  "name": "rosekingdom",
-  "private": true,
-  "version": "1.0.0",
-  "description": "부엉프로덕션 · 로즈왕국 (정적 사이트 + Vercel 서버 함수 어드민)",
-  "engines": { "node": "20.x" }
-}
