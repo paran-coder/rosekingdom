@@ -80,7 +80,9 @@ window.OWLS = [
     tags: ['아이돌', '매니저 & 프로듀서', '응원 & 에너지'],
     sns: [
       { type: 'instagram', url: 'https://www.instagram.com/ppabamfilms' },
-      { type: 'youtube', url: 'https://youtube.com/@ppabamfilms' }
+      { type: 'youtube', url: 'https://youtube.com/@ppabamfilms' },
+      { type: 'threads', url: 'https://www.threads.com/@ppabamfilms' },
+      { type: 'tiktok', url: 'https://www.tiktok.com/@ppabamfilms' }
     ] },
   { id: 'background', no: 6, name: '배경대가 부엉이', en: 'Background Master Owl', accent: '#5f7a3a',
     avatar: 'assets/avatars/background.jpg', sheet: 'assets/sheets/background.jpg',
