@@ -34,7 +34,13 @@ window.OWLS = [
     tagline: '액션은 예술이다! 안전은 기본, 멋은 필수!',
     desc: '액션의 모든 순간을 설계하고 완벽하게 연출하는 액션 연출 전문가. 위험 예측과 안전 확보, 스타일리시한 합까지 책임집니다. 클래퍼보드와 메가폰은 언제나 허리춤에.',
     tags: ['액션 연출', '위험 예측', '스타일리시'],
-    sns: [{ type: 'youtube', url: '' }, { type: 'instagram', url: '' }, { type: 'tiktok', url: '' }] },
+    sns: [
+      { type: 'instagram', url: 'https://www.instagram.com/director_gom' },
+      { type: 'youtube', url: 'https://youtube.com/@director_gom' },
+      { type: 'x', url: 'https://x.com/director_gom' },
+      { type: 'threads', url: 'https://www.threads.com/@director_gom' },
+      { type: 'tiktok', url: 'https://www.tiktok.com/@director_gom' }
+    ] },
   { id: 'kiss', no: 2, name: '키스신대가 부엉이', en: 'Kiss-Scene Master Owl', accent: '#e58aa0',
     avatar: 'assets/avatars/kiss.jpg', sheet: 'assets/sheets/kiss.jpg',
     tagline: '설렘 가득한 키스신, 준비는 완벽하게!',
@@ -51,7 +57,11 @@ window.OWLS = [
     tagline: '섬세한 감각과 완벽한 핏으로 최고의 무대를.',
     desc: '옷을 짓고 스타일을 창조하는 의상 전문가. 줄자, 핀쿠션, 원단 샘플, 재단 가위, 스케치북으로 모든 캐릭터에게 꼭 맞는 옷을 입힙니다.',
     tags: ['의상 디자인', '스타일링', '핏'],
-    sns: [{ type: 'instagram', url: '' }, { type: 'youtube', url: '' }, { type: 'threads', url: '' }] },
+    sns: [
+      { type: 'youtube', url: 'https://www.youtube.com/@blio.studio' },
+      { type: 'instagram', url: 'https://www.instagram.com/blio_studio' },
+      { type: 'threads', url: 'https://www.threads.com/@blio_studio' }
+    ] },
   { id: 'eunseulbeot', no: 4, name: '은슬벗대가 부엉이', en: 'Eunseulbeot Master Owl', accent: '#a8445a',
     avatar: 'assets/avatars/eunseulbeot.jpg', sheet: 'assets/sheets/eunseulbeot.jpg',
     tagline: '"벗기는 건 내가 아니야~ 네 마음이지~?"',
@@ -59,7 +69,9 @@ window.OWLS = [
     tags: ['심리 유도', '분위기 조성', '타이밍 마술'],
     sns: [
       { type: 'instagram', url: 'https://www.instagram.com/granny.moa' },
-      { type: 'youtube', url: 'https://youtube.com/@grannymoa' }
+      { type: 'youtube', url: 'https://youtube.com/@grannymoa' },
+      { type: 'threads', url: 'https://www.threads.com/@granny.moa' },
+      { type: 'tiktok', url: 'https://www.tiktok.com/@granny.moa' }
     ] },
   { id: 'idol', no: 5, name: '아이돌대가 부엉이', en: 'Idol Master Owl', accent: '#8e63d6',
     avatar: 'assets/avatars/idol.jpg', sheet: 'assets/sheets/idol.jpg',
@@ -84,7 +96,7 @@ window.OWLS = [
     tagline: '스토리를 엮고, 상상을 현실로 만드는 마법의 이야기꾼.',
     desc: '동화책과 마법 지팡이, 별빛 랜턴을 든 이야기꾼. 이야기의 열쇠로 상상 속 문을 열고, 지혜의 왕관을 쓰고 이야기를 완성합니다.',
     tags: ['동화', '스토리텔링', '판타지'],
-    sns: [{ type: 'youtube', url: '' }, { type: 'instagram', url: '' }, { type: 'blog', url: '' }] },
+    sns: [{ type: 'instagram', url: 'https://www.instagram.com/shinestudio.tv' }] },
   { id: 'heroine', no: 9, name: '여주맛집대가 부엉이', en: 'Heroine Specialist Owl', accent: '#a8506a',
     avatar: 'assets/avatars/heroine.jpg', sheet: 'assets/sheets/heroine.jpg',
     tagline: '"여주의 이야기가 세상을 움직이게 할 거예요."',
