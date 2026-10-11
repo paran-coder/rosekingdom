@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>어드민 · 부엉프로덕션</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- 로그인 -->
+<main class="login" id="loginView" hidden>
+  <form class="login-card" id="loginForm">
+    <p class="mark">&#10048;</p>
+    <h1>부엉프로덕션 어드민</h1>
+    <p class="sub">비밀번호를 입력하세요</p>
+    <input type="password" id="passcode" autocomplete="current-password" aria-label="비밀번호" required>
+    <button class="btn primary" type="submit">로그인</button>
+    <p class="note" id="loginNote" role="status"></p>
+    <a class="back" href="/">&larr; 사이트로 돌아가기</a>
+  </form>
+</main>
+
+<!-- 어드민 -->
+<div class="app" id="appView" hidden>
+  <header class="bar">
+    <strong class="brand"><span>&#10048;</span> 부엉프로덕션 어드민</strong>
+    <div class="bar-r">
+      <a class="btn" href="/" target="_blank" rel="noopener">사이트 보기 &#8599;</a>
+      <button class="btn" id="logoutBtn" type="button">로그아웃</button>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-tab="inbox" class="on">접수함 <span class="count" id="newCount" hidden></span></button>
+    <button role="tab" data-tab="sns">SNS 링크</button>
+    <button role="tab" data-tab="screenings">상영관</button>
+    <button role="tab" data-tab="lab">연구소</button>
+    <button role="tab" data-tab="letters">로즈편지</button>
+  </nav>
+
+  <main class="panel-area" id="panel"></main>
+  <p class="hint">저장한 내용은 사이트에 최대 1분 안에 반영됩니다. 레이아웃·색·구조는 여기서 바꿀 수 없습니다.</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../data/data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
