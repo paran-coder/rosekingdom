@@ -91,7 +91,9 @@ window.OWLS = [
     tags: ['배경 아트', '풍경 수집', '세계관 설계'],
     sns: [
       { type: 'instagram', url: 'https://www.instagram.com/luminaframe_2026' },
-      { type: 'youtube', url: 'https://www.youtube.com/channel/UCA30BtWtc0K-iRO-lHVhuAg' }
+      { type: 'youtube', url: 'https://www.youtube.com/@루미나프레임' },
+      { type: 'threads', url: 'https://www.threads.com/@luminaframe_2026' },
+      { type: 'tiktok', url: 'https://www.tiktok.com/@your.drama92' }
     ] },
   { id: 'fairytale', no: 7, name: '동화대가 부엉이', en: 'Fairytale Master Owl', accent: '#4b4a8f',
     avatar: 'assets/avatars/fairytale.jpg', sheet: 'assets/sheets/fairytale.jpg',
