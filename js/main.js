@@ -38,7 +38,7 @@
     { id: 'training', name: '부엉이 훈련소', sub: '헌터', cx: .375, cy: .53, k: 3.0, side: 'right', ax: .365, ay: .64, go: 'training' },
     { id: 'village', name: '부엉이 마을', sub: '8마리 크리에이터', cx: .54, cy: .46, k: 2.8, side: 'left', ax: .545, ay: .60, go: 'village' },
     { id: 'theater', name: '왕립 상영관', sub: '작품 상영', cx: .79, cy: .60, k: 2.9, side: 'left', ax: .785, ay: .74, go: 'theater' },
-    { id: 'lab', name: '왕립기술연구소', sub: '프로그램 · 스킬', cx: .71, cy: .26, k: 3.0, side: 'left', ax: .71, ay: .39, go: 'lab' },
+    { id: 'lab', name: '왕립기술연구소', sub: '연구 · 기록 · 자료실', cx: .71, cy: .26, k: 3.0, side: 'left', ax: .71, ay: .39, go: 'lab' },
     { id: 'library', name: '왕립서고', sub: '로즈왕국 연대기', cx: .885, cy: .29, k: 3.0, side: 'left', ax: .885, ay: .46, go: 'library' },
     { id: 'hall', name: '알현실', sub: '의뢰 · 로즈편지', cx: .55, cy: .74, k: 3.0, side: 'right', ax: .515, ay: .80, go: 'hall' }
   ];
@@ -146,9 +146,9 @@
           D.SCREENINGS.slice(0, 4).map(function (f) { return '<li><b>' + esc(f.title) + '</b><small>' + esc(f.tag) + '</small></li>'; }).join('') + '</ul>' +
           '<div class="pop-actions">' + go(n.go, '상영관 가기') + '</div>';
       case 'lab':
-        return '<p class="no">ROYAL INSTITUTE</p><h3>왕립기술연구소</h3><p class="t">프로덕션이 만든 프로그램과 공개 스킬을 기록하고 나눕니다.</p><ul class="mini-list">' +
-          D.LAB.slice(0, 4).map(function (x) { return '<li><b>' + esc(x.title) + '</b><small>' + esc(x.ver) + '</small></li>'; }).join('') + '</ul>' +
-          '<div class="pop-actions">' + go(n.go, '연구소 전체 보기') + '</div>';
+        return '<p class="no">ROYAL INSTITUTE</p><h3>왕립기술연구소</h3><p class="t">' + esc(D.INSTITUTE.tagline) + '</p><ul class="mini-list">' +
+          D.INSTITUTE.fields.map(function (f) { return '<li><b>' + esc(f.name) + '</b></li>'; }).join('') + '</ul>' +
+          '<div class="pop-actions">' + (safeUrl(D.INSTITUTE.link || '') ? '<a class="btn primary" href="' + esc(D.INSTITUTE.link) + '" target="_blank" rel="noopener noreferrer">' + esc(D.INSTITUTE.linkLabel) + ' &#8599;</a>' : '') + go(n.go, '연구소 소개') + '</div>';
       case 'library':
         return '<p class="no">ROYAL LIBRARY</p><h3>왕립서고</h3><p class="t">' + esc(D.LIBRARY.intro) + '</p><ul class="mini-list">' +
           D.LIBRARY.chapters.slice(0, 4).map(function (c) { return '<li><b>' + esc(c.title) + '</b><small>' + esc(c.era.split('·')[0].trim()) + '</small></li>'; }).join('') + '</ul>' +
@@ -330,30 +330,18 @@
     sg.appendChild(b);
   });
 
-  var TYPES = { all: '전체', program: '프로그램', skill: '공개 스킬', workflow: '워크플로우', template: '템플릿' };
-  var STATUS = { public: '공개', beta: '베타', wip: '제작중' };
-  var chips = $('#labChips'), labGrid = $('#labGrid'), labFilter = 'all';
-  Object.keys(TYPES).forEach(function (k) {
-    var b = document.createElement('button');
-    b.className = 'chip' + (k === 'all' ? ' on' : ''); b.type = 'button'; b.textContent = TYPES[k];
-    b.addEventListener('click', function () {
-      labFilter = k; $$('.chip', chips).forEach(function (c) { c.classList.toggle('on', c === b); }); renderLab();
-    });
-    chips.appendChild(b);
-  });
-  function renderLab() {
-    var items = D.LAB.filter(function (x) { return labFilter === 'all' || x.type === labFilter; });
-    labGrid.innerHTML = items.length ? items.map(function (x) {
-      var links = (x.links || []).map(function (l) {
-        var u = safeUrl(l.url || '');
-        return u ? '<a class="btn" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + ' &#8599;</a>' : '<span class="btn pending">' + esc(l.label) + '</span>';
-      }).join('');
-      return '<article class="lab-card"><div class="top"><span class="badge type">' + esc(TYPES[x.type] || x.type) + '</span>' +
-        '<span class="badge ' + esc(x.status) + '">' + esc(STATUS[x.status] || x.status) + '</span><span class="ver">' + esc(x.ver) + ' · ' + esc(x.date) + '</span></div>' +
-        '<h3>' + esc(x.title) + '</h3><p>' + esc(x.desc) + '</p>' + tagsHtml(x.tags) + '<div class="links">' + links + '</div></article>';
-    }).join('') : '<p class="empty">아직 이 분류의 기록이 없습니다.</p>';
-  }
-  renderLab();
+  /* 왕립기술연구소: 소개글 + 연구 분야 + 자료실(노션) 바로가기 */
+  (function () {
+    var I = D.INSTITUTE, link = safeUrl(I.link || '');
+    $('#instTagline').textContent = I.tagline;
+    $('#institute').innerHTML =
+      '<div class="inst-text">' + I.intro.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
+      '<ul class="inst-charter">' + I.charter.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>' +
+      (link ? '<a class="btn primary big" href="' + esc(link) + '" target="_blank" rel="noopener noreferrer">' + esc(I.linkLabel) + ' &#8599;</a>' : '') + '</div>' +
+      '<ol class="inst-fields">' + I.fields.map(function (f, i) {
+        return '<li><span class="n">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + esc(f.name) + '</b><p>' + esc(f.desc) + '</p></div></li>';
+      }).join('') + '</ol>';
+  })();
 
   $('#libIntro').textContent = D.LIBRARY.intro;
   $('#timeline').innerHTML = D.LIBRARY.chapters.map(function (c) {

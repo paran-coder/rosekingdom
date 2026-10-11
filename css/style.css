@@ -172,22 +172,6 @@ h2{font-family:var(--serif);font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.15;
 .film .meta p{font-size:.84rem;opacity:.8}
 
 /* 연구소 */
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:24px}
-.chip{background:#fff;border:1px solid rgba(163,32,58,.4);color:var(--rose);border-radius:999px;padding:7px 18px;font-size:.88rem;transition:.2s}
-.chip:hover{background:rgba(163,32,58,.08)}
-.chip.on{background:var(--rose);color:#fff;border-color:var(--rose)}
-.lab-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.lab-card{background:#fff;color:var(--ink);border-radius:20px;padding:22px 24px;border:1px solid rgba(211,173,91,.55);box-shadow:0 12px 30px rgba(80,40,30,.12)}
-.lab-card .top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.badge{font-size:.7rem;padding:2px 10px;border-radius:999px;font-weight:700;letter-spacing:.04em}
-.badge.type{background:var(--wine2);color:var(--gold2)}
-.badge.public{background:#dff0d8;color:#2c6b2f}
-.badge.beta{background:#fff1c9;color:#8a6200}
-.badge.wip{background:#e9e4f5;color:#5a3f95}
-.lab-card .ver{margin-left:auto;font-family:var(--disp);font-size:.8rem;color:var(--muted)}
-.lab-card h3{font-family:var(--serif);font-size:1.25rem;color:var(--wine2)}
-.lab-card p{font-size:.92rem;color:#5a463e;margin:6px 0 10px}
-.lab-card .links{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:9px 22px;border:1px solid var(--rose);background:#fff;color:var(--rose);font-size:.9rem;text-decoration:none;transition:.2s}
 .btn:hover{background:var(--rose);color:#fff}
 .btn.primary{background:var(--rose);color:#fff;border-color:var(--rose)}
@@ -264,7 +248,7 @@ textarea{resize:vertical}
   .list-btn{bottom:auto;top:58px;left:14px;font-size:.76rem;padding:6px 12px}
   .scroll-hint{bottom:18px}
   .sec{padding:70px 16px}
-  .owl-grid,.screen-grid,.lab-grid,.hall-grid{grid-template-columns:1fr}
+  .owl-grid,.screen-grid,.hall-grid{grid-template-columns:1fr}
   .profile-card{grid-template-columns:1fr;text-align:center;padding:22px}
   .profile-card .avatar{max-width:170px;margin:0 auto}
   .profile-card .quote{text-align:left}
@@ -276,3 +260,18 @@ textarea{resize:vertical}
   #petals{display:none}
   .pop{transition:none}
 }
+
+/* 왕립기술연구소 */
+.institute{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+.inst-text p{font-size:1.02rem;color:#4e3b34;margin-bottom:14px}
+.inst-charter{list-style:none;margin:18px 0 26px;padding:14px 18px;border-left:3px solid var(--gold);background:rgba(211,173,91,.12);border-radius:0 12px 12px 0}
+.inst-charter li{font-family:var(--serif);font-size:1.02rem;color:var(--wine2);padding:2px 0}
+.inst-charter li::before{content:"\273F ";color:var(--rose);font-size:.8rem}
+.btn.big{padding:12px 28px;font-size:1rem}
+.inst-fields{list-style:none;counter-reset:f}
+.inst-fields li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:16px 0;border-top:1px dashed #d6c3a6}
+.inst-fields li:last-child{border-bottom:1px dashed #d6c3a6}
+.inst-fields .n{font-family:var(--disp);color:var(--gold);font-size:1.15rem;line-height:1.5}
+.inst-fields b{font-family:var(--serif);font-size:1.15rem;color:var(--wine2)}
+.inst-fields p{font-size:.93rem;color:#5a463e;margin-top:3px}
+@media (max-width:1020px){.institute{grid-template-columns:1fr}}

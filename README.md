@@ -13,7 +13,7 @@ python -m http.server 5173 --directory site
 ## 콘텐츠 고치기 — `data/data.js`
 - `QUEEN`, `HUNTER`, `OWLS[]` : 소개 문구와 `sns` 링크(`url`을 채우면 버튼 활성화, 비우면 "준비중")
 - `SCREENINGS[]` : 상영관 영상. `youtube`에 영상 ID를 넣으면 재생
-- `LAB[]` : 왕립기술연구소 아카이브 (type: program / skill / workflow / template, status: public / beta / wip)
+- `INSTITUTE` : 왕립기술연구소 소개글, 연구 분야, 자료실(노션) 바로가기 링크(`link`)
 - `LIBRARY.chapters[]` : 왕립서고 연대기
 - `LETTERS[]` : 로즈편지 지난 호
 - `CONFIG.contactEmail` : 의뢰서 수신 메일 / `CONFIG.newsletterAction` : 구독 폼 전송 URL
