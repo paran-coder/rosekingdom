@@ -111,7 +111,7 @@ window.SCREENINGS = [
   { title: '로즈왕국 대개봉 (예고편)', owl: '부엉프로덕션', tag: '트레일러', year: '2026', youtube: '', thumb: '', desc: '로즈왕국의 문이 열리는 순간.' },
   { title: '로즈여왕의 인사', owl: '로즈여왕', tag: '여왕', year: '2026', youtube: '-QR8hYhZ9c8', thumb: '', desc: '장미 궁전에서 전하는 여왕의 첫 인사.' },
   { title: '액션대가의 첫 합', owl: '1 액션대가 부엉이', tag: '액션', year: '2026', youtube: 'mSdxazFPuvs', thumb: '', desc: '위험도 스타일이다, 준비, 액션!' },
-  { title: '장미 한 송이의 고백', owl: '2 키스신대가 부엉이', tag: '로맨스', year: '2026', youtube: '', thumb: '', desc: '설렘 가득한 키스신 모음.' },
+  { title: '장미 한 송이의 고백', owl: '2 키스신대가 부엉이', tag: '로맨스', year: '2026', youtube: '3Rv8Ck-t9Z8', thumb: '', desc: '설렘 가득한 키스신 모음.' },
   { title: '한 땀 한 땀, 무대의 옷', owl: '3 의상대가 부엉이', tag: '의상', year: '2026', youtube: 'otiThT2rUY0', thumb: '', desc: '줄자와 가위로 짓는 왕국의 스타일.' },
   { title: '은근슬쩍', owl: '4 은슬벗대가 부엉이', tag: '심리', year: '2026', youtube: '', thumb: '', desc: '분위기를 만드는 타이밍의 마술.' },
   { title: '빛나는 무대', owl: '5 아이돌대가 부엉이', tag: '뮤직', year: '2026', youtube: 'DmnGe33kkxo', thumb: '', desc: '왕국 최초의 라이브 스테이지.' },
